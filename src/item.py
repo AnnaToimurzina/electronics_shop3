@@ -36,9 +36,9 @@ class Item:
     '''В этом сеттере `name` проверяем, что длина наименования товара не больше 10 символов'''
 
     @name.setter
-    def name(self, name):
-        if len(self.__name) <= 10:
-            self.__name = name
+    def name(self, name_2: str):
+        if len(name_2) <= 10:
+            self.__name = name_2
         else:
             raise Exception('Длина товара более 10 символов')
 
@@ -60,11 +60,12 @@ class Item:
     '''класс-метод, инициализирующий экземпляры класса `Item` данными из файла'''
     @classmethod
     def instantiate_from_csv(cls):
-        dir_path=os.path.dirname(os.path.realpath(__file__))
-        with open(dir_path + '\items.csv') as csv.file:
-            reader = csv.DictReader(csv.file)
+        cls.all.clear()
+        data_csv = os.path.join('..\src\items.csv')
+        with open(data_csv, newline='', encoding='windows-1251') as file:
+            csvreader = csv.DictReader(file)
 
-            for row in reader:
+            for row in csvreader:
                 cls(row['name'], row['price'], row['quantity'])
 
 
