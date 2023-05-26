@@ -5,10 +5,14 @@ from src.item import Item
 def item():
     return Item("Смартфон", 10000, 20)
 
+def test_instantiate_from_csv(item):
+    assert item.name == "Смартфон"
+    assert item.price == 10000
+    assert item.quantity == 20
 
-def test_instantiate_from_csv():
+def test_instantiate_no_file():
     with pytest.raises(FileNotFoundError):
-        assert instantiate_from_csv("../tests/operations.json") == "Файл не найден"
+        Item.instantiate_from_csv()
 
 
 def test_item_list():
