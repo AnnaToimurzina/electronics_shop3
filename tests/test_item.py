@@ -5,6 +5,16 @@ from src.item import Item
 def item():
     return Item("Смартфон", 10000, 20)
 
+def test_instantiate_from_csv(item):
+    assert item.name == "Смартфон"
+    assert item.price == 10000
+    assert item.quantity == 20
+
+def test_instantiate_no_file():
+    with pytest.raises(FileNotFoundError):
+        Item.instantiate_from_csv()
+
+
 def test_item_list():
     assert len(Item.all) == 0
     item1 = Item("Смартфон", 10000, 20)
