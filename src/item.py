@@ -11,6 +11,18 @@ class Item:
     pay_rate = 1.0
     all = []
 
+    def __str__(self):
+        """
+        Возвращает строку со значением объекта Item.
+        """
+        return f'{self.__class__.__name__} ({self.__dict__})'
+
+    def __repr__(self):
+        """
+        Возвращает строку с описанием объекта Item.
+        """
+        return f"{self.__class__.__name__}('{self.__name}', {self.price}, {self.quantity})"
+
     def __init__(self, name: str, price: float, quantity: int) -> None:
         """
         Создание экземпляра класса item.
