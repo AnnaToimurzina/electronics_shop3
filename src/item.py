@@ -15,7 +15,7 @@ class Item:
         """
         Возвращает строку со значением объекта Item.
         """
-        return f'{self.__class__.__name__} ({self.__dict__})'
+        return f'{self.__name}'
 
     def __repr__(self):
         """

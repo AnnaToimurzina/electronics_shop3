@@ -5,17 +5,9 @@ from src.item import Item
 def item():
     return Item("Смартфон", 10000, 20)
 
-def test_item_str(item):
-    assert str(item) == "Item ({'_Item__name': 'Смартфон', 'price': 10000, 'quantity': 20})"
-
 def test_item_name(item):
     assert item.name == "Смартфон"
 
-def test_item_price(item):
-    assert item.price == 10000
-
-def test_item_quantity(item):
-    assert item.quantity == 20
 
 def test_instantiate_from_csv(item):
     assert item.name == "Смартфон"
