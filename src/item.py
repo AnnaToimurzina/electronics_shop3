@@ -1,5 +1,4 @@
 import os.path
-
 import src.item
 import csv
 
@@ -87,6 +86,17 @@ class Item:
     @staticmethod
     def string_to_number(string_number):
         return float(string_number.replace(',', '.'))
+
+    def __add__(self, other) -> int:
+        """
+        Реализация операции сложения для экземпляров класса Phone и Item.
+
+        :param other: Другой объект, с которым нужно выполнить операцию."""
+
+        if not isinstance(other, Item):
+            raise ValueError('только экземпляры Item класса и Phone')
+        else:
+            return self.quantity + other.quantity
 
 
 
