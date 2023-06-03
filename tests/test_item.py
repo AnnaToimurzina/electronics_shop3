@@ -1,5 +1,6 @@
 import pytest
 from src.item import Item
+from src.phone import Phone
 
 @pytest.fixture
 def item():
@@ -49,6 +50,14 @@ def test_name_too_long_len(item):
     """Название товара слишком длинное"""
     with pytest.raises(Exception):
         item.name = 'ТелефонТелефонТелефон'
+
+def test_addition_with_item():
+    phone1 = Phone("iPhone 14", 120000, 5, 2)
+    item1 = Item("Смартфон", 10000, 20)
+    result = phone1.quantity + item1.quantity
+    assert result == 25
+
+
 
 
 
