@@ -21,6 +21,9 @@ class LanguageMixin:
 
 
 class Keyboard(Item, LanguageMixin):
+    '''класс `Keyboard` для товара “клавиатура.
+    Товар отличается от `Item` тем, что у него есть атрибут `language` и метод для изменения языка
+    реализованный в классе LanguageMixin'''
     def __init__(self, name: str, price: float, quantity: int):
         super().__init__(name, price, quantity)
 
