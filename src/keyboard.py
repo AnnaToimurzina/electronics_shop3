@@ -32,4 +32,4 @@ class Keyboard(Item, LanguageMixin):
         return self.name
 
     def __repr__(self):
-        return f"Keyboard('{self.__name}', {self.price}, {self.quantity}')"
+        return f"Keyboard('{self.name}', {self.price}, {self.quantity})"
