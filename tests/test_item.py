@@ -1,6 +1,12 @@
 import pytest
 from src.item import Item
 from src.phone import Phone
+from src.item import InstantiateCSVError
+import os
+import csv
+
+
+
 
 @pytest.fixture
 def item():
@@ -17,6 +23,19 @@ def test_instantiate_from_csv(item):
 
 def test_instantiate_no_file():
     with pytest.raises(FileNotFoundError):
+        Item.instantiate_from_csv()
+        with pytest.raises(FileNotFoundError):
+            os.rename('temp_missing.csv', '..\src\items.csv')
+            Item.instantiate_from_csv()
+
+def test_instantiate_2():
+    data_csv = os.path.join('..\src\temp_invalid.csv')
+    with open(data_csv, newline='', encoding='windows-1251') as file:
+        csvreader = csv.DictReader(file)
+        for row in csvreader:
+            Item(row['name'], row['price'], row['quantity'])
+def test_instantiate_from_csv_missing_fields():
+    with pytest.raises(InstantiateCSVError):
         Item.instantiate_from_csv()
 
 

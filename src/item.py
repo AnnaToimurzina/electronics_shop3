@@ -3,6 +3,10 @@ import src.item
 import csv
 
 
+class InstantiateCSVError(Exception):
+    pass
+
+
 class Item:
     """
     Класс для представления товара в магазине.
@@ -56,7 +60,6 @@ class Item:
     def calculate_total_price(self) -> float:
         """
         Рассчитывает общую стоимость конкретного товара в магазине.
-
         :return: Общая стоимость товара.
         """
         return self.price * self.quantity
@@ -68,21 +71,23 @@ class Item:
         self.price *= self.pay_rate
 
 
+
     '''класс-метод, инициализирующий экземпляры класса `Item` данными из файла'''
     @classmethod
     def instantiate_from_csv(cls):
         cls.all.clear()
         data_csv = os.path.join('..\src\items.csv')
-        with open(data_csv, newline='', encoding='windows-1251') as file:
-            csvreader = csv.DictReader(file)
-
-            for row in csvreader:
-                cls(row['name'], row['price'], row['quantity'])
-
+        try:
+            with open(data_csv, newline='', encoding='windows-1251') as file:
+                csvreader = csv.DictReader(file)
+                for row in csvreader:
+                    if 'name' not in row or 'price' not in row or 'quantity' not in row:
+                        raise InstantiateCSVError('Файл item.csv поврежден')
+        except FileNotFoundError:
+            raise FileNotFoundError('Отсутствует файл item.csv')
 
 
     '''статический метод, возвращающий число из числа-строки'''
-
     @staticmethod
     def string_to_number(string_number):
         return float(string_number.replace(',', '.'))
@@ -90,7 +95,6 @@ class Item:
     def __add__(self, other) -> int:
         """
         Реализация операции сложения для экземпляров класса Phone и Item(сложение по количеству товара в магазине).
-
         :param other: Другой объект, с которым нужно выполнить операцию."""
 
         if not isinstance(other, Item):
