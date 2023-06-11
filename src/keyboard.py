@@ -16,7 +16,7 @@ class LanguageMixin:
             self.__language = 'RU'
             return self
         else:
-            self.__language == 'EN'
+            self.__language = 'EN'
             return self
 
 
