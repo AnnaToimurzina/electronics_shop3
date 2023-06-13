@@ -78,13 +78,15 @@ class Item:
         cls.all.clear()
         data_csv = os.path.join('..\src\items.csv')
         try:
-            with open(data_csv, newline='', encoding='windows-1251') as file:
-                csvreader = csv.DictReader(file)
-                for row in csvreader:
-                    if 'name' not in row or 'price' not in row or 'quantity' not in row:
-                        raise InstantiateCSVError('Файл item.csv поврежден')
+            with open(data_csv, newline='', encoding='windows-1251') as csvfile:
+                csvreader = csv.DictReader(csvfile)
+                if len(csvreader.fieldnames) != 3:
+                    raise InstantiateCSVError()
+                for ex in csvreader:
+                    cls(name=ex['name'], price=float(ex['price']), quantity=int(ex['quantity']))
         except FileNotFoundError:
-            raise FileNotFoundError('Отсутствует файл item.csv')
+            print("Отсутствует файл item.csv")
+
 
 
     '''статический метод, возвращающий число из числа-строки'''
